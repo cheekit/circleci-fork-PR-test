@@ -5,7 +5,7 @@ jobs:
       - image: circleci/node:latest
     steps:
       - checkout
-      - run: echo "Hello CircleCI"
+      - run: echo "Hello CircleCI forked"
 workflows:
   version: 2
   workflow:
