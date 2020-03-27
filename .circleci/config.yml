@@ -1,14 +1,32 @@
-version: 2
+version: 2.1
+orbs:
+  dscar: naokikimura/dscar@0.8.4
+  dscar-rubocop: naokikimura/dscar-rubocop@0.8.4
+  dscar-brakeman: naokikimura/dscar-brakeman@0.8.2
+  dscar-misspell: naokikimura/dscar-misspell@0.8.2
+
 jobs:
   build:
+    parameters:
+      project-git_url:
+        type: string
+      git-base_revision:
+        type: string
+      git-revision:
+        type: string
     docker:
-      - image: circleci/node:latest
+      - image: circleci/python:3.6.4
     steps:
-      - checkout
-      - run: echo "Hello CircleCI"
+      - run: echo <<pipeline.number>>
+      - run: echo <<parameters.project-git_url>>
+      - run: echo <<parameters.git-base_revision>>
+      - run: echo <<parameters.git-revision>>
+
 workflows:
   version: 2
-  workflow:
-   jobs:
-     - build
-
+  pipeline-test:
+    jobs:
+      - build:
+          project-git_url: << pipeline.project.git_url >>
+          git-base_revision: << pipeline.git.base_revision >>
+          git-revision: << pipeline.git.revision >>
