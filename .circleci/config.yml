@@ -23,8 +23,7 @@ workflows:
          requires:
            - build
      - deploy:
-          context:
-             - forked-project
+         context: forked-project
          requires:
            - hold
 
