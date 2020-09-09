@@ -17,7 +17,8 @@ workflows:
   version: 2
   workflow:
    jobs:
-     - build
+     - build:
+         context: forked-project
      - hold:
          type: approval
          requires:
