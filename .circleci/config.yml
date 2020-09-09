@@ -5,10 +5,24 @@ jobs:
       - image: circleci/node:latest
     steps:
       - checkout
-      - run: echo "Hello CircleCI"
+      - run: echo $PROJECT_ENV
+  deploy:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - run: echo $CONTEXT_ENV
+      
 workflows:
   version: 2
   workflow:
    jobs:
      - build
+     - hold:
+         type: approval
+         requires:
+           - build
+     - deploy:
+          context:
+             - forked-project
 
