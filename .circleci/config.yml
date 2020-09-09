@@ -1,11 +1,15 @@
 version: 2
 jobs:
   build:
+    parameters:
+      py_version:
+        type: string
     docker:
       - image: circleci/node:latest
     steps:
       - checkout
       - run: echo $CONTEXT_ENV
+      - run: echo << parameters.py_version >>
   deploy:
     docker:
       - image: circleci/node:latest
@@ -18,6 +22,10 @@ workflows:
   workflow:
    jobs:
      - build:
+         matrix:
+           parameters:
+             py_version: ["3.6", "3.7", "3.8"]
+
          context: forked-project
      - hold:
          type: approval
