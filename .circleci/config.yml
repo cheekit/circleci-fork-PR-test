@@ -25,4 +25,6 @@ workflows:
      - deploy:
           context:
              - forked-project
+         requires:
+           - hold
 
