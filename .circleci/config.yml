@@ -12,6 +12,7 @@ jobs:
     steps:
       - checkout
       - run: echo $PROJECT_ENV
+      - run: echo $CONTEXT_ENV
       
 workflows:
   version: 2
