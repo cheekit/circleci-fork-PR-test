@@ -1,14 +1,19 @@
-version: 2
+version: 2.1
+
 jobs:
   build:
     docker:
-      - image: circleci/node:latest
+      - image: circleci/python:3.6.4
     steps:
-      - checkout
-      - run: echo "Hello CircleCI forked"
+      - run: echo <<pipeline.number>>
+
 workflows:
   version: 2
-  workflow:
-   jobs:
-     - build
-
+  pipeline-test:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: /.*/
+            tags:
+              only: /^v.*/
